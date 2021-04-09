@@ -48,6 +48,6 @@
 	});
 
 	$('.back').click(function(){
-		$(location).attr('href', '<?php echo BASE_URL('admin/users'); ?>')
+		$(location).attr('href', '<?php echo BASE_URL('mitra/users'); ?>')
 	});
 </script>
