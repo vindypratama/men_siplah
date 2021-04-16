@@ -1,0 +1,55 @@
+body{
+	padding: 0;
+	margin: 0;
+}
+
+header{
+	padding: 0;
+	margin: 0;
+	min-height: 20vh;
+	max-height: 20vh;
+}
+
+section{
+	padding: 0;
+	margin: 0;
+	min-height: 75vh
+}
+
+footer{
+	background: #33AEFF;
+	padding: 5px;
+	font-size: 0.8em;
+	min-height: 5vh;
+	border-top: 1px solid #000;
+	margin: auto 0;
+}
+
+@media only screen and (max-width: 575.98px) {
+	
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767.98px) {
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+	footer{
+		position: fixed;
+		bottom: 0;
+	}
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+	footer{
+		position: fixed;
+		bottom: 0;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	footer{
+		position: fixed;
+		bottom: 0;
+	}
+}
