@@ -1,0 +1,1 @@
+<link rel="stylesheet" href="<?php echo assets_template('login/page.css?version='.date('YmdHis')); ?>">

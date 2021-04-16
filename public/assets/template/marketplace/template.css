@@ -1,0 +1,105 @@
+body{
+	padding: 0;
+	margin: 0;
+}
+
+header{
+	padding: 0;
+	margin: 0;
+	min-height: 20vh;
+	max-height: 20vh;
+}
+
+section{
+	padding: 0;
+	margin: 0;
+	min-height: 75vh;
+}
+
+footer{
+	background: #33AEFF;
+	padding: 5px;
+	font-size: 0.8em;
+	min-height: 5vh;
+	border-top: 1px solid #000;
+	margin-top: 5px;
+}
+
+@media only screen and (max-width: 575.98px) {
+	header{
+		padding: 0;
+		margin: 0;
+		min-height: 15vh;
+		max-height: 15vh;
+	}
+	section{
+		min-height: 75vh;
+	}
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767.98px) {
+	header{
+		min-height: 15vh;
+		max-height: 15vh;
+	}
+	section{
+		min-height: 75vh;
+	}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+	.center-screen {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+	}
+
+	section{
+		height: 75vh;
+	}
+
+	footer{
+		position: fixed;
+		bottom: 0;
+	}
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+	.center-screen {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+	}
+
+	section{
+		height: 75vh;
+	}
+
+	footer{
+		position: fixed;
+		bottom: 0;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.center-screen {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+	}
+
+	section{
+		height: 75vh;
+	}
+
+	footer{
+		position: fixed;
+		bottom: 0;
+	}
+}

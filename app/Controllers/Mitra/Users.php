@@ -26,27 +26,46 @@ class Users extends BaseController
 
     public function index()
     {
-        $content["title"]      = "Daftar User";
-        $data['content_title'] = $content["title"];
-        $content["container"]  = view("mitra/users/list", $data);
-        $content_js["js"]      = view("mitra/users/js");
-        $this->template($content, $content_js);
+        // $this->getUserActivity('Daftar User');
+
+        // $content["title"]      = "Melihat Daftar User";
+        // $data['content_title'] = $content["title"];
+        // $content["container"]  = view("mitra/users/list", $data);
+        // $content_js["js"]      = view("mitra/users/js");
+        // $this->template($content, $content_js);
+
+        $title                      = "Daftar User";
+        $breadcrumb_data['data']    = 'list';
+        $content_data['breadcrumb'] = view('mitra/users/breadcrumb', $breadcrumb_data);
+        $content                    = view('mitra/users/list', $content_data);
+        $content_js                 = view('mitra/users/js');
+        $content_css                = view('mitra/users/css');
+        $this->template_admin($title, $content, $content_js, $content_css);
     }
 
     public function list()
     {
-        $users = model('App\Models\Users', false);
+        $users = new UsersModel;
         $users = array('data' => $users->findAll());
         echo json_encode($users);
     }
 
     public function add()
     {
-        $content["title"] = "Input User";
-        $data['content_title'] = $content["title"];
-        $content["container"] = view('mitra/users/add', $data);
-        $content_js["js"] = view("mitra/users/js");
-        $this->template($content, $content_js);
+        // $content["title"] = "Input User";
+        // $data['content_title'] = $content["title"];
+        // $content["container"] = view('mitra/users/add', $data);
+        // $content_js["js"] = view("mitra/users/js");
+        // $this->template($content, $content_js);
+
+
+        $title                      = "Tambah Data User";
+        $breadcrumb_data['data']    = 'Tambah';
+        $content_data['breadcrumb'] = view('mitra/users/breadcrumb', $breadcrumb_data);
+        $content                    = view('mitra/users/add', $content_data);
+        $content_js                 = view('mitra/users/js');
+        $content_css                = view('mitra/users/css');
+        $this->template_admin($title, $content, $content_js, $content_css);
     }
 
     public function add_post()
@@ -95,21 +114,18 @@ class Users extends BaseController
         ];
 
         $users = new UsersModel;
-
         $id = $users->insert($data);
 
         if($users->errors())
         {
             session()->setFlashdata("error", "Gagal menambah data User. terjadi kesalahan pada data User.");
             return redirect()->to(base_url('mitra/users'));
-            exit;
         }
 
         if($id === false)
         {
             session()->setFlashdata("error", "Gagal menambah data User. terjadi kesalahan pada server.");
             return redirect()->to(base_url('mitra/users'));
-            exit;
         }
 
         session()->setFlashdata("success", "Berhasil menambah data User <b>".$nama."</b>.");
@@ -118,14 +134,25 @@ class Users extends BaseController
 
     public function update($id_pengguna)
     {
-        $users = new UsersModel;
-        $data['data'] = $users->find($id_pengguna);
+        // $users = new UsersModel;
+        // $data['data'] = $users->find($id_pengguna);
 
-        $content["title"] = "Update User";
-        $data['content_title'] = $content["title"];
-        $content["container"] = view('mitra/users/update', $data);
-        $content_js["js"] = view("mitra/users/js");
-        $this->template($content, $content_js);
+        // $content["title"] = "Update User";
+        // $data['content_title'] = $content["title"];
+        // $content["container"] = view('mitra/users/update', $data);
+        // $content_js["js"] = view("mitra/users/js");
+        // $this->template($content, $content_js);
+
+
+        $users                      = new UsersModel;
+        $title                      = "Ubah Data User";
+        $breadcrumb_data['data']    = 'Ubah';
+        $content_data['breadcrumb'] = view('mitra/users/breadcrumb', $breadcrumb_data);
+        $content_data['data']       =  $users->find($id_pengguna);
+        $content                    = view('mitra/users/update', $content_data);
+        $content_js                 = view('mitra/users/js');
+        $content_css                = view('mitra/users/css');
+        $this->template_admin($title, $content, $content_js, $content_css);
     }
 
     public function update_post()

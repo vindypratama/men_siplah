@@ -1,9 +1,5 @@
 <form method="POST" action="<?php echo site_url('mitra/users/update_post'); ?>">
-    <div class="card mt-3">
-        <div class="card-header">
-            <h4><?=$content_title?></h4>
-        </div>
-        <div class="card-body">
+    <?=csrf_field()?>
             <!-- cek validasi -->
             <?php
                 $inputs  = session()->getFlashdata('inputs');

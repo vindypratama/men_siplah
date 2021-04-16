@@ -9,11 +9,13 @@ if(! defined('ADMIN_PATH')) define('ADMIN_PATH', 'admin');
  * DEFINE VARIABLE FOR TABLE NAME
  */
 if(! defined('T_PENGGUNA')) define('T_PENGGUNA', 'pengguna');
+if(! defined('T_PENGGUNA_AKTIVITAS')) define('T_PENGGUNA_AKTIVITAS', 'pengguna_aktivitas');
 
 /**
  * DEFINE VARIABLE FOR GENERAL
  */
 if(! defined('ID')) define('ID', 'id');
+if(! defined('LOGGED_IN')) define('LOGGED_IN', 'logged_in');
 if(! defined('CODE')) define('CODE', 'code');
 if(! defined('OWNER')) define('OWNER', 'owner');
 if(! defined('NAME')) define('NAME', 'name');
@@ -49,15 +51,12 @@ if(! defined('DIUBAH_OLEH')) define('DIUBAH_OLEH', 'diubah_oleh');
 if(! defined('DIHAPUS_TANGGAL')) define('DIHAPUS_TANGGAL', 'dihapus_tanggal');
 if(! defined('DIHAPUS_OLEH')) define('DIHAPUS_OLEH', 'dihapus_oleh');
 
-
-if(! defined('QTY_BEFORE')) define('QTY_BEFORE', 'aty_before');
-if(! defined('QTY_AFTER')) define('QTY_AFTER', 'qty_after');
-
 /**
  * DEFINE GLOBAL VARIABLE FOR PENGGUNA
  */
 if(! defined('ID_PENGGUNA')) define('ID_PENGGUNA', 'id_pengguna');
 if(! defined('PERAN_PENGGUNA')) define('PERAN_PENGGUNA', 'peran_pengguna');
+if(! defined('TIPE_PENGGUNA')) define('TIPE_PENGGUNA', 'tipe_pengguna');
 if(! defined('OTP')) define('OTP', 'otp');
 if(! defined('VERIFY_CODE')) define('VERIFY_CODE', 'verify_code');
 if(! defined('RESET_CODE')) define('RESET_CODE', 'reset_code');
@@ -72,38 +71,15 @@ if(! defined('NITK')) define('NITK', 'nitk');
 if(! defined('NUPTK')) define('NUPTK', 'nuptk');
 if(! defined('NIP')) define('NIP', 'nip');
 
-/**
- * DEFINE VARIABLE FOR CUSTOMER
- */
-if(! defined('ID_CUSTOMER')) define('ID_CUSTOMER', 'id_customer');
-if(! defined('OWNER')) define('OWNER', 'owner');
 
-/**
- * DEFINE VARIABLE FOR SUPPLIER
- */
-if(! defined('ID_SUPPLIER')) define('ID_SUPPLIER', 'id_supplier');
-
-/**
- * DEFINE VARIABLE FOR PURCHASE
- */
-if(! defined('ID_PURCHASE')) define('ID_PURCHASE', 'id_purchase');
-if(! defined('PRICE_TOTAL')) define('PRICE_TOTAL', 'price_total');
-if(! defined('QTY_TOTAL')) define('QTY_TOTAL', 'qty_total');
-if(! defined('SHIPPING_COST')) define('SHIPPING_COST', 'shipping_cost');
-if(! defined('PAYMENT_TYPE')) define('PAYMENT_TYPE', 'payment_type');
-if(! defined('QTY')) define('QTY', 'qty');
-if(! defined('PRICE')) define('PRICE', 'price');
-if(! defined('HPP')) define('HPP', 'hpp');
-
-/**
- * DEFINE VARIABLE FOR PURCHASE
- */
-if(! defined('ID_SALES')) define('ID_SALES', 'id_sales');
-
-/**
- * DEFINE VARIABLE FOR CATEGORY
- */
-if(! defined('ID_PARENT')) define('ID_PARENT', 'id_parent');
+if(! defined('ID_AKTIVITAS')) define('ID_AKTIVITAS', 'id_aktivitas');
+if(! defined('ALAMAT_IP')) define('ALAMAT_IP', 'alamat_ip');
+if(! defined('PERANGKAT_PENGGUNA')) define('PERANGKAT_PENGGUNA', 'perangkat_pengguna');
+if(! defined('BROWSER')) define('BROWSER', 'browser');
+if(! defined('USER_AGENT_STRING')) define('USER_AGENT_STRING', 'user_agent_string');
+if(! defined('PREVIOUS_URL')) define('PREVIOUS_URL', 'previous_url');
+if(! defined('CURRENT_URL')) define('CURRENT_URL', 'current_url');
+if(! defined('AKTIVITAS')) define('AKTIVITAS', 'aktivitas');
 
 /**
  * DEFINE VARIABLE FOR USERS

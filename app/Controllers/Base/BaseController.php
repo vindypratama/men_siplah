@@ -15,6 +15,7 @@ namespace App\Controllers\Base;
  */
 
 use CodeIgniter\Controller;
+use App\Models\UsersActivity as UsersActivityModel;
 
 class BaseController extends Controller
 {
@@ -26,7 +27,8 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = ['asset_helper','my_constants_helper','general_helper','login_helper'];
+	protected $helpers = ['asset_helper','my_constants_helper','general_helper','login_helper','form', 'url'];
+	protected $session;
 
 	/**
 	 * Constructor.
@@ -41,36 +43,139 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// E.g.:
 		$this->session = \Config\Services::session();
-		 
-		// Ensure that the session is started and running
-        // if (session_status() == PHP_SESSION_NONE)
-        // {
-        //     $this->session = \Config\Services::session();
-        // }
-		
-		// helper(array('asset_helper','my_constants_helper','general_helper'));
 	}
 
-	public function template_login($content, $content_js)
+	public function getUserActivity($aktivitas = "")
 	{
-		// $content['title'] = "judul";
-		// $content_js["js"] = "";
-		// $content["container"] = view("admin/template_default/list");
-		// $content["navbar"] = view("admin/template_default/navbar");
-        $content["css"] = view("auth/template/css");
-        $content["js"] = view("auth/template/js", $content_js);
-        echo view("auth/template/template", $content);
+		// if(!$this->session->get(ID_PENGGUNA))
+		// {
+		// 	echo "testing";
+		// 	print_r(base_url('login/page'));
+		// 	// exit;
+		// 	return redirect()->to(base_url());
+		// 	exit;
+		// }
+
+		$user_activity = new UsersActivityModel;
+
+		$agent = $this->request->getUserAgent();
+
+        if ($agent->isBrowser())
+        {
+            $currentAgent = $agent->getBrowser().' '.$agent->getVersion();
+        }
+        elseif ($agent->isRobot())
+        {
+            $currentAgent = $this->agent->robot();
+        }
+        elseif ($agent->isMobile())
+        {
+            $currentAgent = $agent->getMobile();
+        }
+        else
+        {
+            $currentAgent = 'Unidentified User Agent';
+        }
+
+        $data_activity = array(
+            ID_PENGGUNA => $this->session->get(ID_PENGGUNA),
+            ALAMAT_IP => $this->request->getIPAddress(),
+            PERANGKAT_PENGGUNA => $agent->getPlatform(),
+            BROWSER => $currentAgent,
+            USER_AGENT_STRING => $agent->getAgentString(),
+            PREVIOUS_URL => previous_url(),
+            CURRENT_URL => current_url(),
+            AKTIVITAS => $aktivitas
+        );
+
+        $user_activity->insert($data_activity);
 	}
 
-	public function template($content, $content_js)
+	public function isVpn()
 	{
-		// $content['title'] = "judul";
-		// $content_js["js"] = "";
-		// $content["container"] = view("admin/template_default/list");
-		$content["navbar"] = view("mitra/template_default/navbar");
-        $content["css"] = view("mitra/template_default/css");
-        $content["js"] = view("mitra/template_default/js", $content_js);
-        echo view("mitra/template_default/dashboard", $content);
+		$ip = $this->request->getIPAddress();
+        $url = "https://proxycheck.io/v2/".$ip."?vpn=1&asn=1";
+        $respondBody = $this->myCurl("GET", $url, "");
+        $data = $respondBody['data'];
+
+        if($data->status == "error")
+        {
+            // echo "IP Addres tidak valid.";
+            if($ip=='127.0.0.1' || substr($ip, 0, 11)=='192.168.137')
+            {
+            	return false;
+            }
+        }
+        else
+        {
+            $data_ip = $data->$ip;
+            if($data_ip->proxy == "yes")
+            {
+                // echo "Silahkan non-aktifkan VPN atau Proxy";
+                return true;
+            }
+            else
+            {
+                // echo "Koneksi internet aman.";
+                return false;
+            }
+        }
+	}
+
+	public function isVpn2()
+	{
+		// $ip = $this->request->getIPAddress();
+		$ip='114.4.83.42';
+		$url = "https://ipqualityscore.com/api/json/ip/pziubf79vOVytNVroXfubF2wbqwRfDl3/".$ip."?strictness=0&allow_public_access_points=true&fast=true&lighter_penalties=true&mobile=true";
+
+        $respondBody = $this->myCurl("GET", $url, "");
+        print_r($respondBody);
+	}
+
+
+	/**
+	 * Menampilkan template marketplace
+	 * @param  [String] $title         [Berisi judul halaman dengan tipe data string]
+	 * @param  [View] $container     [Berisi file view yang menampilkan isi konten]
+	 * @param  [View] $container_js  [Berisi file view untuk memanggil file javascript]
+	 * @param  [View] $container_css [Berisi file view untuk memanggil file css]
+	 * @return [View]                [Mengembalikan semua view yang ditampilkan pada browser]
+	 */
+    public function template_admin($title, $content, $content_js = null, $content_css = null)
+    {
+    	$template['title'] = $title;
+    	$data_js['js'] = $content_js;
+    	$data_css['css'] = $content_css;
+        $template['js'] = view('template/admin/js', $data_js);
+        $template['css'] = view('template/admin/css', $data_css);
+        $template['navbar'] = view('template/admin/navbar');
+        $data_menu['menu'] = view('menu/list');
+        $template['sidebar'] = view('template/admin/sidebar', $data_menu);
+        $data_content['title'] = $title;
+        $data_content['content'] = $content;
+        $template['content'] = view('template/admin/content', $data_content);
+        $template['footer'] = view('template/admin/footer');
+        echo view('template/admin/template', $template);
+    }
+
+	/**
+	 * Menampilkan template marketplace
+	 * @param  [String] $title         [Berisi judul halaman dengan tipe data string]
+	 * @param  [View] $container     [Berisi file view yang menampilkan isi konten]
+	 * @param  [View] $container_js  [Berisi file view untuk memanggil file javascript]
+	 * @param  [View] $container_css [Berisi file view untuk memanggil file css]
+	 * @return [View]                [Mengembalikan semua view yang ditampilkan pada browser]
+	 */
+	public function template_marketplace($title, $container, $container_js = null, $container_css = null)
+	{
+		$content["title"]     = $title;
+		$content["container"] = $container;
+		$content_js['js']     = $container_js;
+		$content_css['css']   = $container_css;
+		$content["navbar"]    = view('template/marketplace/navbar');
+		$content["js"]        = view("template/marketplace/js", $content_js);
+		$content["css"]       = view("template/marketplace/css", $content_css);
+        echo view("template/marketplace/template", $content);
 	}
 
 	public function myCurlRequest($method, $url, $form = null)
